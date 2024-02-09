@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: demo-toleration-yellow
+  name: demo-toleration-yellow
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: demo-toleration-yellow
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: demo-toleration-yellow
+    spec:
+      tolerations:
+      - key: application
+        value: yellow
+        effect: NoSchedule
+        operator: Equal
+      containers:
+      - image: quay.io/rh_ee_swongpai/py-http-call:52f987b597c5e2425cad791d32060cbdf8091150
+        name: py-http-call
+        securityContext:
+          seccompProfile:
+            type: RuntimeDefault
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          capabilities:
+            drop:
+            - ALL
+        resources: {}
+status: {}

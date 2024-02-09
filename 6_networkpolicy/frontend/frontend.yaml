@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: py-frontend
+  name: py-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: py-frontend
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: py-frontend
+    spec:
+      containers:
+      - image: quay.io/rh_ee_swongpai/py-http-call:ed2000152a1fead1c7a167d51236ce5be5c4c844
+        name: py-frontend
+        envFrom:
+        - configMapRef:
+            name: cm-backend
+        resources: {}
+status: {}

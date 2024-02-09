@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: py-backend
+  name: py-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: py-backend
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: py-backend
+    spec:
+      containers:
+      - image: quay.io/rh_ee_swongpai/py-http-header:e57b876e005d0e7ff3a3b60188b2db8df0d115f1 
+        name: py-backend
+        env:
+        - name: BACKGROUND_COLOR
+          value: "blue"
+        resources: {}
+status: {}

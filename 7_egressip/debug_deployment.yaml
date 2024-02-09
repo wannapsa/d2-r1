@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: debug-toolbox
+  name: debug-toolbox
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: debug-toolbox
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: debug-toolbox
+    spec:
+      containers:
+      - image: registry.access.redhat.com/ubi8/toolbox:8.9-8
+        command: ["sleep", "1d"]
+        name: debug-toolbox
+        securityContext:
+          seccompProfile:
+            type: RuntimeDefault
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          capabilities:
+            drop:
+            - ALL
+        resources: {}

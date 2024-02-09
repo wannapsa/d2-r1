@@ -1,4 +1,4 @@
-##pod anti affinity
+# pod anti affinity
 
 ```
 project: test-application

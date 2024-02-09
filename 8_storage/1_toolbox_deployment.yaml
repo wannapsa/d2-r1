@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: toolbox-pvc
+  name: toolbox-pvc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: toolbox-pvc
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: toolbox-pvc
+    spec:
+      containers:
+      - image: registry.access.redhat.com/ubi8/toolbox:8.9-8
+        command: ["sleep", "2d"]
+        name: toolbox
+        securityContext:
+          seccompProfile:
+            type: RuntimeDefault
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          capabilities:
+            drop:
+            - ALL
+        resources: {}
+        volumeMounts:
+        - name: test-volume
+          mountPath: /datademo
+      volumes:
+      - name: test-volume
+        persistentVolumeClaim:
+          claimName: toolbox-vol

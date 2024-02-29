@@ -4,6 +4,7 @@ metadata:
   name: master-kubeletconfig
 spec:
   autoSizingReserved: true
+  maxpod: 400
   machineConfigPoolSelector:
     matchLabels:
       pools.operator.machineconfiguration.openshift.io/master: ""
